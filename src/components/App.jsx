@@ -1,6 +1,7 @@
 import { FeedbackButtons } from './FeedbackButtons/FeedbackButtons';
 import { Statistics } from './Statistics/Statistics';
 import { Notification } from './Notification/Notification';
+import { Section } from './Section/Section';
 import { Component } from 'react';
 
 export class App extends Component {
@@ -29,21 +30,31 @@ export class App extends Component {
   render() {
     return (
       <>
-        <h1>Please leave feedback </h1>
-        <FeedbackButtons
-          proceedFeedback={this.proceedFeedback}
-        ></FeedbackButtons>
-        <h2>Statistics</h2>
+        <Section
+          title="Please leave feedback"
+          children={
+            <FeedbackButtons
+              options={Object.keys(this.state)}
+              proceedFeedback={this.proceedFeedback}
+            />
+          }
+        />
+
         {this.countTotalFeedback() > 0 ? (
-          <Statistics
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
-            total={this.countTotalFeedback()}
-            positive={this.countPositiveFeedbackPercentage()}
-          ></Statistics>
+          <Section
+            title="Statistics"
+            children={
+              <Statistics
+                good={this.state.good}
+                neutral={this.state.neutral}
+                bad={this.state.bad}
+                total={this.countTotalFeedback()}
+                positive={this.countPositiveFeedbackPercentage()}
+              ></Statistics>
+            }
+          />
         ) : (
-          <Notification message="There is no feedback right now😢"></Notification>
+          <Notification message="There is no feedback right now😢" />
         )}
       </>
     );

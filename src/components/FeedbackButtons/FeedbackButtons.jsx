@@ -1,23 +1,15 @@
 import * as Styled from './FeedbackButtons.styled';
 
-export const FeedbackButtons = ({ proceedFeedback }) => {
+export const FeedbackButtons = ({ options, proceedFeedback }) => {
   return (
     <Styled.List>
-      <Styled.Item>
-        <Styled.Button onClick={() => proceedFeedback('good')}>
-          Good
-        </Styled.Button>
-      </Styled.Item>
-      <Styled.Item>
-        <Styled.Button onClick={() => proceedFeedback('neutral')}>
-          Neutral
-        </Styled.Button>
-      </Styled.Item>
-      <Styled.Item>
-        <Styled.Button onClick={() => proceedFeedback('bad')}>
-          Bad
-        </Styled.Button>
-      </Styled.Item>
+      {options.map(el => (
+        <Styled.Item key={el}>
+          <Styled.Button onClick={() => proceedFeedback(el)}>
+            {el[0].toUpperCase() + el.slice(1)}
+          </Styled.Button>
+        </Styled.Item>
+      ))}
     </Styled.List>
   );
 };
